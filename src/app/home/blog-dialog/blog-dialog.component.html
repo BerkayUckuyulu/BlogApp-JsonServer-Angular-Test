@@ -1,0 +1,76 @@
+<div style="display: flex; justify-content: space-between">
+  <div style="display: flex; align-items: center">
+    <h3 style="margin: 0">
+      <span>
+        {{ isUpdate == true ? "Yazıyı Güncelle" : "Yazıyı Gör" }}
+      </span>
+    </h3>
+  </div>
+
+  <button (click)="close()" mat-button style="font-size: 24px">X</button>
+</div>
+<mat-divider class="mb-2"></mat-divider>
+
+<div *ngIf="!isUpdate">
+  <div class="row">
+    <div class="col-md-6">
+      <img class="w-100" src="assets/images/image{{ imageUrl }}.jpg" alt="" />
+    </div>
+    <div class="col-md-6">
+      <h2>{{ title }}</h2>
+      <p>{{ body }}</p>
+    </div>
+  </div>
+  <div
+    style="background-color: #d9d9d9"
+    class="row my-2"
+    *ngFor="let comment of commentData"
+  >
+    <div
+      style="display: flex; justify-content: center; align-items: center"
+      class="col-md-1"
+    >
+      <img
+        class="w-100"
+        src="assets/images/profile/profile{{ comment.userId }}.jpg"
+        alt=""
+        style="width: 50px !important; height: 50px; border-radius: 50%"
+      />
+    </div>
+    <div class="col-md-11">
+      <h3>{{ comment.name }}</h3>
+      <p>{{ comment.body }}</p>
+    </div>
+  </div>
+</div>
+<div *ngIf="isUpdate">
+  <form [formGroup]="form" style="min-width: 350px">
+    <div class="container">
+      <div class="row">
+        <mat-form-field>
+          <mat-label>Bloğun Başlığı</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field>
+          <mat-label>Bloğun Başlığı</mat-label>
+          <textarea
+            cols="30"
+            rows="10"
+            matInput
+            formControlName="body"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <button
+        (click)="onSubmit()"
+        [disabled]="form.invalid"
+        mat-raised-button
+        color="primary"
+      >
+        Güncelle
+      </button>
+    </div>
+  </form>
+</div>
